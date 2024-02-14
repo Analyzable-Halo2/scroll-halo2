@@ -23,7 +23,8 @@ pub enum SerdeFormat {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct CopyCell {
+/// Visibility changed for analyzer
+pub struct CopyCell {
     pub column: Column<Any>,
     pub row: usize,
 }
