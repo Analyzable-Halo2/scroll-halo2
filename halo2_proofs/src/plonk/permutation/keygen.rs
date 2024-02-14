@@ -25,7 +25,8 @@ pub struct Assembly {
 }
 
 impl Assembly {
-    pub(crate) fn new(n: usize, p: &Argument) -> Self {
+    /// Visibility changed for analyzer
+    pub fn new(n: usize, p: &Argument) -> Self {
         // Initialize the copy vector to keep track of copy constraints in all
         // the permutation arguments.
         let mut columns = vec![];
@@ -45,7 +46,8 @@ impl Assembly {
         }
     }
 
-    pub(crate) fn copy(
+    /// Visibility changed for analyzer
+    pub fn copy(
         &mut self,
         left_column: Column<Any>,
         left_row: usize,

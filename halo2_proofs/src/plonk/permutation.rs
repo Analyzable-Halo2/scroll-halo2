@@ -10,7 +10,8 @@ use crate::{
 };
 use ff::PrimeField;
 
-pub(crate) mod keygen;
+/// Visibility changed for analyzer
+pub mod keygen;
 pub(crate) mod prover;
 pub(crate) mod verifier;
 

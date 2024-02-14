@@ -31,7 +31,8 @@ pub trait ColumnType:
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub struct Column<C: ColumnType> {
     pub index: usize,
-    column_type: C,
+    /// Visibility changed for analyzer
+    pub column_type: C,
 }
 
 impl<C: ColumnType> Column<C> {
@@ -67,8 +68,8 @@ impl<C: ColumnType> PartialOrd for Column<C> {
         Some(self.cmp(other))
     }
 }
-
-pub(crate) mod sealed {
+/// Visibility changed for analyzer
+pub mod sealed {
     /// Phase of advice column
     #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
     pub struct Phase(pub(crate) u8);
@@ -375,7 +376,8 @@ impl TryFrom<Column<Any>> for Column<Instance> {
 /// }
 /// ```
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub struct Selector(pub(crate) usize, bool);
+/// Visibility changed for analyzer
+pub struct Selector(pub usize, bool);
 
 impl Selector {
     /// Enable this selector at the given offset within the given region.
@@ -396,9 +398,11 @@ pub struct FixedQuery {
     /// Query index
     pub(crate) index: usize,
     /// Column index
-    pub(crate) column_index: usize,
+    /// Visibility changed for analyzer
+    pub column_index: usize,
     /// Rotation of this query
-    pub(crate) rotation: Rotation,
+    /// Visibility changed for analyzer
+    pub rotation: Rotation,
 }
 
 impl FixedQuery {
@@ -427,9 +431,11 @@ pub struct AdviceQuery {
     /// Query index
     pub(crate) index: usize,
     /// Column index
-    pub(crate) column_index: usize,
+    /// Visibility changed for analyzer
+    pub column_index: usize,
     /// Rotation of this query
-    pub(crate) rotation: Rotation,
+    /// Visibility changed for analyzer
+    pub rotation: Rotation,
     /// Phase of this advice column
     pub(crate) phase: sealed::Phase,
 }
@@ -1363,7 +1369,8 @@ pub struct Gate<F: Field> {
 }
 
 impl<F: Field> Gate<F> {
-    pub(crate) fn name(&self) -> &'static str {
+    /// Visibility changed for analyzer
+    pub fn name(&self) -> &'static str {
         self.name
     }
 
@@ -1388,8 +1395,10 @@ impl<F: Field> Gate<F> {
 /// TODO doc
 #[derive(Debug, Clone)]
 pub struct LookupTracker<F: Field> {
-    pub(crate) table: Vec<Expression<F>>,
-    pub(crate) inputs: Vec<Vec<Expression<F>>>,
+    /// Visibility changed for analyzer
+    pub table: Vec<Expression<F>>,
+    /// Visibility changed for analyzer
+    pub inputs: Vec<Vec<Expression<F>>>,
 }
 
 /// This is a description of the circuit environment, such as the gate, column and
@@ -1436,7 +1445,8 @@ pub struct ConstraintSystem<F: Field> {
 
     // Vector of fixed columns, which can be used to store constant values
     // that are copied into advice columns.
-    pub(crate) constants: Vec<Column<Fixed>>,
+    /// Visibility changed for analyzer
+    pub constants: Vec<Column<Fixed>>,
 
     pub(crate) minimum_degree: Option<usize>,
 }
@@ -1859,7 +1869,8 @@ impl<F: Field> ConstraintSystem<F> {
     /// find which fixed column corresponds with a given `Selector`.
     ///
     /// Do not call this twice. Yes, this should be a builder pattern instead.
-    pub(crate) fn compress_selectors(mut self, selectors: Vec<Vec<bool>>) -> (Self, Vec<Vec<F>>) {
+    /// Visibility changed for analyzer
+    pub fn compress_selectors(mut self, selectors: Vec<Vec<bool>>) -> (Self, Vec<Vec<F>>) {
         // The number of provided selector assignments must be the number we
         // counted for this constraint system.
         assert_eq!(selectors.len(), self.num_selectors);
